@@ -54,7 +54,7 @@
         [data-theme="light"] {
             --primary: #0A1220;
             --secondary: #4A6A88;
-            --tertiary: #0EA5B0;
+            --tertiary: #0A1220;
             --neutral: #F0F4F8;
             --surface: #FFFFFF;
             --on-primary: #FFFFFF;
@@ -933,18 +933,64 @@
            FOOTER
            ═══════════════════════════════════════════════ */
         .footer {
-            padding: 32px 0;
+            padding: 48px 0;
             border-top: 1px solid rgba(106, 138, 168, 0.08);
             text-align: center;
+            overflow: hidden;
         }
-        .footer p {
-            font-size: var(--fs-label);
-            letter-spacing: var(--ls-label);
+
+        .footer-text-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .footer-hover-svg {
+            cursor: pointer;
+            overflow: visible;
+        }
+
+        .svg-text {
+            font-family: var(--font-display);
+            font-size: 30px;
+            font-weight: 500;
+            fill: transparent;
+            letter-spacing: 0.06em;
             text-transform: uppercase;
-            color: var(--secondary);
         }
-        .footer .heart {
-            color: var(--tertiary);
+
+        .svg-text-bg {
+            stroke: var(--secondary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-hover-svg:hover .svg-text-bg {
+            opacity: 0.2;
+        }
+
+        .svg-text-anim {
+            stroke: var(--secondary);
+            stroke-dasharray: 1200;
+            stroke-dashoffset: 1200;
+            animation: drawStroke 4s ease-in-out forwards;
+            opacity: 0.4;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-hover-svg:hover .svg-text-anim {
+            opacity: 0;
+        }
+
+        @keyframes drawStroke {
+            to {
+                stroke-dashoffset: 0;
+            }
         }
 
         /* ═══════════════════════════════════════════════
@@ -1375,7 +1421,89 @@
     <!-- ═══════════ FOOTER ═══════════ -->
     <footer class="footer" id="footer">
         <div class="container">
-            <p>Designed & Built by Nezamul Haque <span class="heart">♦</span> 2025</p>
+            <div class="footer-text-wrapper">
+                <svg
+                  id="footerSvg"
+                  width="100%"
+                  height="100%"
+                  viewBox="0 0 1000 100"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="select-none footer-hover-svg"
+                >
+                  <defs>
+                    <linearGradient
+                      id="textGradient"
+                      gradientUnits="userSpaceOnUse"
+                      x1="0%"
+                      y1="0%"
+                      x2="100%"
+                      y2="0%"
+                    >
+                      <stop offset="0%" stop-color="#eab308" />
+                      <stop offset="25%" stop-color="#ef4444" />
+                      <stop offset="50%" stop-color="#3b82f6" />
+                      <stop offset="75%" stop-color="#06b6d4" />
+                      <stop offset="100%" stop-color="#8b5cf6" />
+                    </linearGradient>
+
+                    <radialGradient
+                      id="revealMask"
+                      gradientUnits="userSpaceOnUse"
+                      r="12%"
+                      cx="50%"
+                      cy="50%"
+                    >
+                      <stop offset="0%" stop-color="white" />
+                      <stop offset="100%" stop-color="black" />
+                    </radialGradient>
+                    
+                    <mask id="textMask">
+                      <rect
+                        x="0"
+                        y="0"
+                        width="100%"
+                        height="100%"
+                        fill="url(#revealMask)"
+                      />
+                    </mask>
+                  </defs>
+                  
+                  <text
+                    x="50%"
+                    y="50%"
+                    text-anchor="middle"
+                    dominant-baseline="middle"
+                    stroke-width="0.5"
+                    class="svg-text svg-text-bg"
+                  >
+                    Designed & Built by Nezamul Haque
+                  </text>
+                  
+                  <text
+                    x="50%"
+                    y="50%"
+                    text-anchor="middle"
+                    dominant-baseline="middle"
+                    stroke-width="0.5"
+                    class="svg-text svg-text-anim"
+                  >
+                    Designed & Built by Nezamul Haque
+                  </text>
+                  
+                  <text
+                    x="50%"
+                    y="50%"
+                    text-anchor="middle"
+                    dominant-baseline="middle"
+                    stroke="url(#textGradient)"
+                    stroke-width="0.5"
+                    mask="url(#textMask)"
+                    class="svg-text svg-text-mask"
+                  >
+                    Designed & Built by Nezamul Haque
+                  </text>
+                </svg>
+            </div>
         </div>
     </footer>
 
@@ -1540,6 +1668,33 @@
             ring.addEventListener('mouseleave', () => {
                 ring.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
                 ring.style.transform = 'rotateY(0deg) rotateX(0deg)';
+            });
+        }
+
+        /* ─── Footer Text Hover Effect ─── */
+        const footerSvg = document.getElementById('footerSvg');
+        const revealMask = document.getElementById('revealMask');
+        if (footerSvg && revealMask) {
+            let isHovered = false;
+
+            footerSvg.addEventListener('mouseenter', () => {
+                isHovered = true;
+            });
+
+            footerSvg.addEventListener('mouseleave', () => {
+                isHovered = false;
+                // Gracefully snap the radial gradient mask to the center when mouse leaves
+                revealMask.setAttribute('cx', '50%');
+                revealMask.setAttribute('cy', '50%');
+            });
+
+            footerSvg.addEventListener('mousemove', (e) => {
+                if (!isHovered) return;
+                const rect = footerSvg.getBoundingClientRect();
+                const x = ((e.clientX - rect.left) / rect.width) * 100;
+                const y = ((e.clientY - rect.top) / rect.height) * 100;
+                revealMask.setAttribute('cx', `${x}%`);
+                revealMask.setAttribute('cy', `${y}%`);
             });
         }
 
