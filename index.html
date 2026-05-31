@@ -125,17 +125,22 @@
         /* ═══════════════════════════════════════════════
            NAVIGATION
            ═══════════════════════════════════════════════ */
+        .svg-defs {
+            position: absolute;
+            width: 0;
+            height: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
         .navbar {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             height: var(--nav-height);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 clamp(var(--spacing-md), 4vw, 48px);
             z-index: 1000;
+            padding: 0;
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             background: rgba(5, 10, 20, 0.7);
@@ -152,15 +157,27 @@
             box-shadow: 0 1px 24px rgba(0, 0, 0, 0.15);
         }
 
-        .nav-logo {
-            font-size: 1.1rem;
-            font-weight: 600;
-            letter-spacing: -0.01em;
-            color: var(--primary);
-            position: relative;
+        .navbar-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: var(--nav-height);
+            width: 100%;
         }
-        .nav-logo span {
-            color: var(--tertiary);
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            position: relative;
+            line-height: 0;
+        }
+        .nav-logo img {
+            height: 36px;
+            width: auto;
+            display: block;
+            object-fit: contain;
+            filter: url(#nav-logo-tertiary);
+            transition: filter var(--transition-base);
         }
 
         .nav-links {
@@ -230,6 +247,12 @@
         .theme-toggle .icon-sun { display: none; }
         [data-theme="light"] .theme-toggle .icon-moon { display: none; }
         [data-theme="light"] .theme-toggle .icon-sun { display: block; }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
 
         /* Mobile menu */
         .nav-hamburger {
@@ -1124,6 +1147,17 @@
             .cursor-glow { display: none; }
         }
     </style>
+    <svg class="svg-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+        <defs>
+            <filter id="nav-logo-tertiary" color-interpolation-filters="sRGB">
+                <feFlood flood-color="var(--tertiary)" result="flood"/>
+                <feComposite in="flood" in2="SourceAlpha" operator="in" result="tinted"/>
+                <feMerge>
+                    <feMergeNode in="tinted"/>
+                </feMerge>
+            </filter>
+        </defs>
+    </svg>
 </head>
 <body>
     <!-- Cursor glow -->
@@ -1131,27 +1165,31 @@
 
     <!-- ═══════════ NAVBAR ═══════════ -->
     <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
-        <a href="#hero" class="nav-logo" id="nav-logo">N<span>.</span>H</a>
-        <div class="nav-links" id="navLinks">
-            <a href="#about" id="nav-about">About</a>
-            <a href="#skills" id="nav-skills">Skills</a>
-            <a href="#experience" id="nav-experience">Experience</a>
-            <a href="#projects" id="nav-projects">Projects</a>
-            <a href="#education" id="nav-education">Education</a>
-            <a href="#contact" id="nav-contact">Contact</a>
-            <button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark theme">
-                <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-                <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-            </button>
-        </div>
-        <div style="display: flex; align-items: center; gap: 12px;">
-            <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle theme" style="display:none;">
-                <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-                <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-            </button>
-            <button class="nav-hamburger" id="navHamburger" aria-label="Toggle navigation menu">
-                <span></span><span></span><span></span>
-            </button>
+        <div class="container navbar-inner">
+            <a href="#hero" class="nav-logo" id="nav-logo">
+                <img src="pflogo1.png" alt="Nezamul Haque" width="120" height="36">
+            </a>
+            <div class="nav-links" id="navLinks">
+                <a href="#about" id="nav-about">About</a>
+                <a href="#skills" id="nav-skills">Skills</a>
+                <a href="#experience" id="nav-experience">Experience</a>
+                <a href="#projects" id="nav-projects">Projects</a>
+                <a href="#education" id="nav-education">Education</a>
+                <a href="#contact" id="nav-contact">Contact</a>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark theme">
+                    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                </button>
+            </div>
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle theme" style="display:none;">
+                    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                </button>
+                <button class="nav-hamburger" id="navHamburger" aria-label="Toggle navigation menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
         </div>
     </nav>
 
