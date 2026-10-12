@@ -125,17 +125,22 @@
         /* ═══════════════════════════════════════════════
            NAVIGATION
            ═══════════════════════════════════════════════ */
+        .svg-defs {
+            position: absolute;
+            width: 0;
+            height: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
         .navbar {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             height: var(--nav-height);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 clamp(var(--spacing-md), 4vw, 48px);
             z-index: 1000;
+            padding: 0;
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             background: rgba(5, 10, 20, 0.7);
@@ -152,15 +157,27 @@
             box-shadow: 0 1px 24px rgba(0, 0, 0, 0.15);
         }
 
-        .nav-logo {
-            font-size: 1.1rem;
-            font-weight: 600;
-            letter-spacing: -0.01em;
-            color: var(--primary);
-            position: relative;
+        .navbar-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: var(--nav-height);
+            width: 100%;
         }
-        .nav-logo span {
-            color: var(--tertiary);
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            position: relative;
+            line-height: 0;
+        }
+        .nav-logo img {
+            height: 36px;
+            width: auto;
+            display: block;
+            object-fit: contain;
+            filter: url(#nav-logo-tertiary);
+            transition: filter var(--transition-base);
         }
 
         .nav-links {
@@ -230,6 +247,12 @@
         .theme-toggle .icon-sun { display: none; }
         [data-theme="light"] .theme-toggle .icon-moon { display: none; }
         [data-theme="light"] .theme-toggle .icon-sun { display: block; }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
 
         /* Mobile menu */
         .nav-hamburger {
@@ -737,16 +760,16 @@
            PROJECTS
            ═══════════════════════════════════════════════ */
         .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
         }
 
         .project-card {
             background: var(--surface);
             border: 1px solid rgba(106, 138, 168, 0.08);
             border-radius: var(--rounded-lg);
-            padding: 28px;
+            padding: clamp(24px, 4vw, 36px);
             display: flex;
             flex-direction: column;
             gap: 16px;
@@ -776,11 +799,18 @@
 
         .project-header {
             display: flex;
-            align-items: flex-start;
+            align-items: center;
             justify-content: space-between;
         }
 
         .project-icon {
+            color: var(--tertiary);
+        }
+
+        .project-date {
+            font-size: var(--fs-label);
+            letter-spacing: var(--ls-label);
+            text-transform: uppercase;
             color: var(--tertiary);
         }
 
@@ -793,7 +823,7 @@
         }
 
         .project-name {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             font-weight: 500;
         }
 
@@ -801,7 +831,35 @@
             color: var(--secondary);
             font-size: 0.88rem;
             line-height: 1.6;
+        }
+
+        .project-bullets {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin: 4px 0 8px 0;
+            padding: 0;
+            list-style: none;
             flex: 1;
+        }
+
+        .project-bullet {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            font-size: 0.84rem;
+            color: var(--secondary);
+            line-height: 1.55;
+        }
+
+        .project-bullet::before {
+            content: '';
+            margin-top: 7px;
+            width: 4px;
+            height: 4px;
+            background: var(--tertiary);
+            border-radius: 50%;
+            flex-shrink: 0;
         }
 
         .project-tags {
@@ -1126,32 +1184,47 @@
     </style>
 </head>
 <body>
+    <svg class="svg-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+        <defs>
+            <filter id="nav-logo-tertiary" color-interpolation-filters="sRGB">
+                <feFlood flood-color="var(--tertiary)" result="flood"/>
+                <feComposite in="flood" in2="SourceAlpha" operator="in" result="tinted"/>
+                <feMerge>
+                    <feMergeNode in="tinted"/>
+                </feMerge>
+            </filter>
+        </defs>
+    </svg>
+
     <!-- Cursor glow -->
     <div class="cursor-glow" id="cursorGlow"></div>
 
     <!-- ═══════════ NAVBAR ═══════════ -->
     <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
-        <a href="#hero" class="nav-logo" id="nav-logo">N<span>.</span>H</a>
-        <div class="nav-links" id="navLinks">
-            <a href="#about" id="nav-about">About</a>
-            <a href="#skills" id="nav-skills">Skills</a>
-            <a href="#experience" id="nav-experience">Experience</a>
-            <a href="#projects" id="nav-projects">Projects</a>
-            <a href="#education" id="nav-education">Education</a>
-            <a href="#contact" id="nav-contact">Contact</a>
-            <button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark theme">
-                <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-                <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-            </button>
-        </div>
-        <div style="display: flex; align-items: center; gap: 12px;">
-            <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle theme" style="display:none;">
-                <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-                <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-            </button>
-            <button class="nav-hamburger" id="navHamburger" aria-label="Toggle navigation menu">
-                <span></span><span></span><span></span>
-            </button>
+        <div class="container navbar-inner">
+            <a href="#hero" class="nav-logo" id="nav-logo">
+                <img src="pflogo1.png" alt="Nezamul Haque" width="120" height="36">
+            </a>
+            <div class="nav-links" id="navLinks">
+                <a href="#about" id="nav-about">About</a>
+                <a href="#skills" id="nav-skills">Skills</a>
+                <a href="#experience" id="nav-experience">Experience</a>
+                <a href="#projects" id="nav-projects">Projects</a>
+                <a href="#contact" id="nav-contact">Contact</a>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark theme">
+                    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                </button>
+            </div>
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle theme" style="display:none;">
+                    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                </button>
+                <button class="nav-hamburger" id="navHamburger" aria-label="Toggle navigation menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
         </div>
     </nav>
 
@@ -1161,7 +1234,6 @@
         <a href="#skills" class="overlay-link">Skills</a>
         <a href="#experience" class="overlay-link">Experience</a>
         <a href="#projects" class="overlay-link">Projects</a>
-        <a href="#education" class="overlay-link">Education</a>
         <a href="#contact" class="overlay-link">Contact</a>
     </div>
 
@@ -1189,7 +1261,7 @@
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
                             GitHub
                         </a>
-                        <a href="resume.pdf" download class="btn-ghost" id="hero-resume">
+                        <a href="nezzu-resume.pdf" download class="btn-ghost" id="hero-resume">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                             Resume
                         </a>
@@ -1227,7 +1299,7 @@
                         <span class="stat-label">Repos</span>
                     </div>
                     <div class="stat-card" id="stat-techs">
-                        <span class="stat-number" data-count="12">0</span>
+                        <span class="stat-number" data-count="20">0</span>
                         <span class="stat-label">Technologies</span>
                     </div>
                     <div class="stat-card" id="stat-experience">
@@ -1253,16 +1325,24 @@
             <div class="skills-grid reveal reveal-delay-1">
                 <div class="skill-chip"><span class="skill-dot"></span>Java</div>
                 <div class="skill-chip"><span class="skill-dot"></span>Spring Boot</div>
-                <div class="skill-chip"><span class="skill-dot"></span>React</div>
+                <div class="skill-chip"><span class="skill-dot"></span>Spring Security</div>
+                <div class="skill-chip"><span class="skill-dot"></span>JWT</div>
+                <div class="skill-chip"><span class="skill-dot"></span>Spring Data JPA</div>
+                <div class="skill-chip"><span class="skill-dot"></span>Hibernate</div>
+                <div class="skill-chip"><span class="skill-dot"></span>Spring</div>
+                <div class="skill-chip"><span class="skill-dot"></span>JDBC</div>
+                <div class="skill-chip"><span class="skill-dot"></span>JSP/Servlets</div>
                 <div class="skill-chip"><span class="skill-dot"></span>MySQL</div>
+                <div class="skill-chip"><span class="skill-dot"></span>React</div>
                 <div class="skill-chip"><span class="skill-dot"></span>JavaScript</div>
-                <div class="skill-chip"><span class="skill-dot"></span>HTML5</div>
-                <div class="skill-chip"><span class="skill-dot"></span>CSS3</div>
-                <div class="skill-chip"><span class="skill-dot"></span>SCSS</div>
+                <div class="skill-chip"><span class="skill-dot"></span>Tailwind CSS</div>
+                <div class="skill-chip"><span class="skill-dot"></span>HTML5 / CSS3</div>
+                <div class="skill-chip"><span class="skill-dot"></span>Vite</div>
                 <div class="skill-chip"><span class="skill-dot"></span>REST APIs</div>
-                <div class="skill-chip"><span class="skill-dot"></span>Git</div>
-                <div class="skill-chip"><span class="skill-dot"></span>GitHub</div>
-                <div class="skill-chip"><span class="skill-dot"></span>CRUD</div>
+                <div class="skill-chip"><span class="skill-dot"></span>OOP (OOPs)</div>
+                <div class="skill-chip"><span class="skill-dot"></span>MVC Architecture</div>
+                <div class="skill-chip"><span class="skill-dot"></span>Problem Solving</div>
+                <div class="skill-chip"><span class="skill-dot"></span>Git / GitHub</div>
             </div>
         </div>
     </section>
@@ -1277,13 +1357,42 @@
             <div class="timeline reveal reveal-delay-1">
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
-                    <span class="timeline-date">Feb 2026 — Present</span>
-                    <h3 class="timeline-role">Full Stack Developer</h3>
+                    <span class="timeline-date">Feb 2026 — Sep 2026</span>
+                    <h3 class="timeline-role">Full Stack Developer Intern</h3>
                     <p class="timeline-company">TAP Academy</p>
                     <div class="timeline-achievements">
-                        <p class="timeline-achievement">Developed responsive full-stack web applications using Java, Spring Boot, React, and MySQL.</p>
-                        <p class="timeline-achievement">Designed and integrated REST APIs for seamless communication between frontend and backend.</p>
-                        <p class="timeline-achievement">Implemented authentication, database management, and CRUD operations to improve application functionality.</p>
+                        <p class="timeline-achievement">Maintained and extended full-stack web applications across 3+ project modules using Java, JDBC, Servlets, JSP, Hibernate, Spring Boot, HTML, CSS, JavaScript, and MySQL.</p>
+                        <p class="timeline-achievement">Structured 5+ backend components following the MVC architecture, ensuring clean, modular, and maintainable code.</p>
+                        <p class="timeline-achievement">Delivered CRUD functionalities across 4+ core features, integrating MySQL databases through JDBC for efficient data management.</p>
+                        <p class="timeline-achievement">Debugged and resolved 10+ production issues, working closely with mentors to optimize application performance.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ═══════════ ACHIEVEMENTS ═══════════ -->
+    <section class="section" id="achievements">
+        <div class="container">
+            <div class="section-label reveal">Achievements</div>
+            <h2 class="section-title reveal">Milestones & Certifications</h2>
+            <div class="timeline reveal reveal-delay-1">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <h3 class="timeline-role">100 Days Challenge</h3>
+                    <p class="timeline-company">TAP Academy (TAI Platform)</p>
+                    <div class="timeline-achievements">
+                        <p class="timeline-achievement">Successfully completed the 100 Days Challenge on TAP Academy’s TAI Platform, demonstrating consistent practice in programming, aptitude, and technical skills.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <h3 class="timeline-role">Java Full Stack Developer Internship</h3>
+                    <p class="timeline-company">TAP Academy</p>
+                    <div class="timeline-achievements">
+                        <p class="timeline-achievement">Gained hands-on web application development experience through the Java Full Stack Developer Internship at TAP Academy.</p>
                     </div>
                 </div>
             </div>
@@ -1298,69 +1407,62 @@
             <div class="section-label reveal">Projects</div>
             <h2 class="section-title reveal">Things I've built</h2>
             <div class="projects-grid">
-                <!-- F-delivery -->
-                <div class="project-card reveal reveal-delay-1" id="project-fdelivery">
+                <!-- Wearora -->
+                <div class="project-card reveal reveal-delay-1" id="project-wearora">
                     <div class="project-header">
-                        <svg class="project-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-                        <a href="https://github.com/Mudassir017/F-delivery" target="_blank" rel="noopener noreferrer" class="project-link" aria-label="View F-delivery on GitHub">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <svg class="project-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+                            <span class="project-date">Aug 2026 — Sep 2026</span>
+                        </div>
+                        <a href="https://github.com/Mudassir017/Wearora-SpringBoot" target="_blank" rel="noopener noreferrer" class="project-link" aria-label="View Wearora repository on GitHub">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                         </a>
                     </div>
-                    <h3 class="project-name">F-Delivery</h3>
-                    <p class="project-desc">A food delivery web application featuring a responsive UI with styled components, interactive JavaScript functionality, and SCSS-powered theming for a polished user experience.</p>
+                    <h3 class="project-name">Wearora – Full-Stack E-Commerce</h3>
+                    <p class="project-desc">A full-stack e-commerce web application with decoupled React.js frontend and production-ready Spring Boot backend.</p>
+                    <ul class="project-bullets">
+                        <li class="project-bullet">Developed full-stack e-commerce application using React.js and Spring Boot, featuring product browsing, product variants, cart and wishlist management, checkout, COD orders, and order tracking through REST APIs.</li>
+                        <li class="project-bullet">Secured the platform with JWT-based authentication and Spring Security, adding customer-specific order access and role-based permissions for product management.</li>
+                        <li class="project-bullet">Engineered transactional checkout and order cancellation with stock validation and pessimistic database locking to coordinate inventory updates and reduce overselling risks.</li>
+                    </ul>
                     <div class="project-tags">
-                        <span class="project-tag">CSS</span>
-                        <span class="project-tag">HTML</span>
-                        <span class="project-tag">SCSS</span>
+                        <span class="project-tag">Java</span>
+                        <span class="project-tag">Spring Boot</span>
+                        <span class="project-tag">Spring Security</span>
+                        <span class="project-tag">JWT</span>
+                        <span class="project-tag">Spring Data JPA</span>
+                        <span class="project-tag">MySQL</span>
+                        <span class="project-tag">React.js</span>
+                        <span class="project-tag">Vite</span>
+                    </div>
+                </div>
+
+                <!-- Hungrify -->
+                <div class="project-card reveal reveal-delay-2" id="project-hungrify">
+                    <div class="project-header">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <svg class="project-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+                            <span class="project-date">Jul 2026 — Aug 2026</span>
+                        </div>
+                        <a href="https://github.com/Mudassir017/Hungrify" target="_blank" rel="noopener noreferrer" class="project-link" aria-label="View Hungrify repository on GitHub">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        </a>
+                    </div>
+                    <h3 class="project-name">Hungrify – Food Delivery Web App</h3>
+                    <p class="project-desc">A full-stack food delivery web application built following clean MVC architectural patterns.</p>
+                    <ul class="project-bullets">
+                        <li class="project-bullet">Created Hungrify, a food delivery web application supporting 15+ restaurant listings, with menu browsing, shopping cart, and order management.</li>
+                        <li class="project-bullet">Integrated secure login with BCrypt password hashing and session-based management for 2 user roles (customer and admin).</li>
+                        <li class="project-bullet">Implemented dynamic features such as restaurant-wise menu loading, quantity management, cart operations, and real-time price calculation.</li>
+                    </ul>
+                    <div class="project-tags">
+                        <span class="project-tag">Java</span>
+                        <span class="project-tag">JDBC</span>
+                        <span class="project-tag">Servlets / JSP</span>
+                        <span class="project-tag">MySQL</span>
+                        <span class="project-tag">HTML5 / CSS3</span>
                         <span class="project-tag">JavaScript</span>
-                    </div>
-                </div>
-
-                <!-- Netflix -->
-                <div class="project-card reveal reveal-delay-2" id="project-netflix">
-                    <div class="project-header">
-                        <svg class="project-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-                        <a href="https://github.com/Mudassir017/netflix" target="_blank" rel="noopener noreferrer" class="project-link" aria-label="View Netflix clone on GitHub">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                        </a>
-                    </div>
-                    <h3 class="project-name">Netflix Clone</h3>
-                    <p class="project-desc">A Netflix-inspired streaming UI clone built with vanilla JavaScript, featuring dynamic content rendering, responsive layouts, and a faithful recreation of the Netflix browsing experience.</p>
-                    <div class="project-tags">
-                        <span class="project-tag">JavaScript</span>
-                        <span class="project-tag">HTML</span>
-                        <span class="project-tag">CSS</span>
-                    </div>
-                </div>
-
-                <!-- localRepo -->
-                <div class="project-card reveal reveal-delay-3" id="project-localrepo">
-                    <div class="project-header">
-                        <svg class="project-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-                        <a href="https://github.com/Mudassir017/localRepo" target="_blank" rel="noopener noreferrer" class="project-link" aria-label="View localRepo on GitHub">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                        </a>
-                    </div>
-                    <h3 class="project-name">Local Repo</h3>
-                    <p class="project-desc">A web project demonstrating HTML fundamentals, version control workflows, and local development environment setup with Git.</p>
-                    <div class="project-tags">
-                        <span class="project-tag">HTML</span>
-                    </div>
-                </div>
-
-                <!-- git-demo -->
-                <div class="project-card reveal reveal-delay-4" id="project-gitdemo">
-                    <div class="project-header">
-                        <svg class="project-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-                        <a href="https://github.com/Mudassir017/git-demo" target="_blank" rel="noopener noreferrer" class="project-link" aria-label="View git-demo on GitHub">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                        </a>
-                    </div>
-                    <h3 class="project-name">Git Demo</h3>
-                    <p class="project-desc">A hands-on Git & GitHub practice repository covering branching strategies, merge workflows, and collaborative development patterns.</p>
-                    <div class="project-tags">
-                        <span class="project-tag">HTML</span>
-                        <span class="project-tag">Git</span>
+                        <span class="project-tag">MVC Architecture</span>
                     </div>
                 </div>
             </div>
@@ -1382,6 +1484,7 @@
                     <h3 class="education-degree">Bachelor of Computer Applications (BCA)</h3>
                     <p class="education-school">Dr. Ambedkar Memorial Institute of Technology and Management Science, Rourkela, Odisha</p>
                     <span class="education-year">2022 — 2025</span>
+                    <span class="education-year" style="margin-left: 12px; color: var(--secondary);">CGPA: 7.2</span>
                 </div>
             </div>
         </div>
@@ -1397,9 +1500,13 @@
                 <h2 class="contact-heading reveal">Let's build<br>something great</h2>
                 <p class="contact-sub reveal reveal-delay-1">I'm currently open to new opportunities. Whether you have a question, a project idea, or just want to say hello — my inbox is always open.</p>
                 <div class="contact-links reveal reveal-delay-2">
-                    <a href="mailto:nezamul.dev@gmail.com" class="contact-pill" id="contact-email">
+                    <a href="mailto:nezamulhaque33@gmail.com" class="contact-pill" id="contact-email">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                        nezamul.dev@gmail.com
+                        nezamulhaque33@gmail.com
+                    </a>
+                    <a href="tel:+917205333213" class="contact-pill" id="contact-phone">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        +91 7205333213
                     </a>
                     <a href="https://www.linkedin.com/in/nezamul-haque" target="_blank" rel="noopener noreferrer" class="contact-pill" id="contact-linkedin">
                         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
@@ -1409,7 +1516,7 @@
                         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
                         GitHub
                     </a>
-                    <a href="resume.pdf" download class="contact-pill" id="contact-resume">
+                    <a href="nezzu-resume.pdf" download class="contact-pill" id="contact-resume">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                         Resume
                     </a>
