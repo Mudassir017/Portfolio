@@ -13,6 +13,28 @@
     />
     <meta name="author" content="Nezamul Haque" />
     <title>Nezamul Haque — Full Stack Developer</title>
+    <link rel="icon" type="image/png" href="pflogo1.png" />
+    <link rel="canonical" href="https://nezamul-portfolio.vercel.app/" />
+
+    <!-- Open Graph / Social Sharing -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://nezamul-portfolio.vercel.app/" />
+    <meta property="og:title" content="Nezamul Haque — Full Stack Developer" />
+    <meta
+      property="og:description"
+      content="Full Stack Java Developer specializing in Java, Spring Boot, React, and MySQL. Building robust, scalable web applications."
+    />
+    <meta property="og:image" content="https://nezamul-portfolio.vercel.app/profile.jpg" />
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Nezamul Haque — Full Stack Developer" />
+    <meta
+      name="twitter:description"
+      content="Full Stack Java Developer specializing in Java, Spring Boot, React, and MySQL. Building robust, scalable web applications."
+    />
+    <meta name="twitter:image" content="https://nezamul-portfolio.vercel.app/profile.jpg" />
+
     <link rel="preconnect" href="https://fonts.cdnfonts.com" />
     <link
       href="https://fonts.cdnfonts.com/css/samsung-sharp-sans"
@@ -64,7 +86,7 @@
       [data-theme="light"] {
         --primary: #0a1220;
         --secondary: #4a6a88;
-        --tertiary: #4fd6e0;
+        --tertiary: #0e7490;
         --neutral: #f0f4f8;
         --surface: #ffffff;
         --on-primary: #ffffff;
@@ -698,9 +720,32 @@
       /* ═══════════════════════════════════════════════
            SKILLS
            ═══════════════════════════════════════════════ */
+      .skills-categories {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+      }
+
+      .skill-category-title {
+        font-size: var(--fs-label);
+        letter-spacing: var(--ls-label);
+        text-transform: uppercase;
+        color: var(--tertiary);
+        margin-bottom: 14px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .skill-category-title::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: rgba(106, 138, 168, 0.12);
+      }
+
       .skills-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
         gap: 12px;
       }
 
@@ -1507,31 +1552,24 @@
         <div class="about-grid">
           <div class="about-text reveal">
             <p>
-              I'm a Full Stack Developer with expertise in Java, Spring Boot,
-              React, and MySQL, focused on building robust and scalable web
-              applications. I enjoy developing clean, efficient solutions that
-              deliver great user experiences while maintaining high performance
-              and reliability.
+              I'm a Full Stack Java Developer specializing in building robust enterprise backend architectures with Spring Boot, Spring Security (JWT), Hibernate/JPA, and MySQL, paired with dynamic, modern frontends using React and JavaScript.
             </p>
             <br />
             <p>
-              Passionate about continuous learning, I constantly explore new
-              concepts and best practices to enhance my development skills.
-              Currently based in Bengaluru, India — always open to exciting
-              opportunities and collaborations.
+              My engineering focus emphasizes clean MVC design patterns, transaction integrity, concurrency management, and RESTful service design. Passionate about writing maintainable, production-ready code — based in Bengaluru, India and open to software engineering opportunities.
             </p>
           </div>
           <div class="about-stats reveal reveal-delay-1">
             <div class="stat-card" id="stat-repos">
-              <span class="stat-number" data-count="20">0</span>
-              <span class="stat-label">Repos</span>
+              <span class="stat-number" data-count="4">4+</span>
+              <span class="stat-label">Projects &amp; Repos</span>
             </div>
             <div class="stat-card" id="stat-techs">
-              <span class="stat-number" data-count="20">0</span>
+              <span class="stat-number" data-count="20">20+</span>
               <span class="stat-label">Technologies</span>
             </div>
             <div class="stat-card" id="stat-experience">
-              <span class="stat-number" data-count="1">0</span>
+              <span class="stat-number" data-count="1">1</span>
               <span class="stat-label">Company</span>
             </div>
             <div class="stat-card" id="stat-location">
@@ -1550,42 +1588,51 @@
       <div class="container">
         <div class="section-label reveal">Skills</div>
         <h2 class="section-title reveal">Technologies I work with</h2>
-        <div class="skills-grid reveal reveal-delay-1">
-          <div class="skill-chip"><span class="skill-dot"></span>Java</div>
-          <div class="skill-chip">
-            <span class="skill-dot"></span>Spring Boot
+        <div class="skills-categories reveal reveal-delay-1">
+          <div class="skill-category">
+            <div class="skill-category-title">Backend &amp; Enterprise Java</div>
+            <div class="skills-grid">
+              <div class="skill-chip"><span class="skill-dot"></span>Java</div>
+              <div class="skill-chip"><span class="skill-dot"></span>Spring Boot</div>
+              <div class="skill-chip"><span class="skill-dot"></span>Spring Security</div>
+              <div class="skill-chip"><span class="skill-dot"></span>JWT</div>
+              <div class="skill-chip"><span class="skill-dot"></span>Spring Data JPA</div>
+              <div class="skill-chip"><span class="skill-dot"></span>Hibernate</div>
+              <div class="skill-chip"><span class="skill-dot"></span>Spring</div>
+              <div class="skill-chip"><span class="skill-dot"></span>JDBC</div>
+              <div class="skill-chip"><span class="skill-dot"></span>JSP</div>
+              <div class="skill-chip"><span class="skill-dot"></span>Servlets</div>
+              <div class="skill-chip"><span class="skill-dot"></span>REST APIs</div>
+            </div>
           </div>
-          <div class="skill-chip">
-            <span class="skill-dot"></span>Spring Security
+
+          <div class="skill-category">
+            <div class="skill-category-title">Frontend Development</div>
+            <div class="skills-grid">
+              <div class="skill-chip"><span class="skill-dot"></span>React</div>
+              <div class="skill-chip"><span class="skill-dot"></span>JavaScript</div>
+              <div class="skill-chip"><span class="skill-dot"></span>Tailwind CSS</div>
+              <div class="skill-chip"><span class="skill-dot"></span>HTML5</div>
+              <div class="skill-chip"><span class="skill-dot"></span>CSS3</div>
+            </div>
           </div>
-          <div class="skill-chip"><span class="skill-dot"></span>JWT</div>
-          <div class="skill-chip">
-            <span class="skill-dot"></span>Spring Data JPA
+
+          <div class="skill-category">
+            <div class="skill-category-title">Database &amp; Persistence</div>
+            <div class="skills-grid">
+              <div class="skill-chip"><span class="skill-dot"></span>MySQL</div>
+            </div>
           </div>
-          <div class="skill-chip"><span class="skill-dot"></span>Hibernate</div>
-          <div class="skill-chip"><span class="skill-dot"></span>Spring</div>
-          <div class="skill-chip"><span class="skill-dot"></span>JDBC</div>
-          <div class="skill-chip"><span class="skill-dot"></span>JSP</div>
-          <div class="skill-chip"><span class="skill-dot"></span>Servlets</div>
-          <div class="skill-chip"><span class="skill-dot"></span>MySQL</div>
-          <div class="skill-chip"><span class="skill-dot"></span>React</div>
-          <div class="skill-chip">
-            <span class="skill-dot"></span>JavaScript
+
+          <div class="skill-category">
+            <div class="skill-category-title">Core Concepts &amp; Tools</div>
+            <div class="skills-grid">
+              <div class="skill-chip"><span class="skill-dot"></span>OOP (OOPs)</div>
+              <div class="skill-chip"><span class="skill-dot"></span>MVC Architecture</div>
+              <div class="skill-chip"><span class="skill-dot"></span>Git</div>
+              <div class="skill-chip"><span class="skill-dot"></span>GitHub</div>
+            </div>
           </div>
-          <div class="skill-chip">
-            <span class="skill-dot"></span>Tailwind CSS
-          </div>
-          <div class="skill-chip"><span class="skill-dot"></span>HTML5</div>
-          <div class="skill-chip"><span class="skill-dot"></span>CSS3</div>
-          <div class="skill-chip"><span class="skill-dot"></span>REST APIs</div>
-          <div class="skill-chip">
-            <span class="skill-dot"></span>OOP (OOPs)
-          </div>
-          <div class="skill-chip">
-            <span class="skill-dot"></span>MVC Architecture
-          </div>
-          <div class="skill-chip"><span class="skill-dot"></span>Git</div>
-          <div class="skill-chip"><span class="skill-dot"></span>GitHub</div>
         </div>
       </div>
     </section>
@@ -2142,20 +2189,29 @@
       const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
 
       function updateActiveLink() {
-        const scrollY = window.scrollY + 120;
+        const scrollY = window.scrollY + 140;
+        let currentSectionId = "";
         sections.forEach((section) => {
           const top = section.offsetTop;
           const height = section.offsetHeight;
           const id = section.getAttribute("id");
           if (scrollY >= top && scrollY < top + height) {
-            navLinks.forEach((link) => {
-              link.classList.remove("active");
-              if (link.getAttribute("href") === "#" + id) {
-                link.classList.add("active");
-              }
-            });
+            currentSectionId = id;
           }
         });
+
+        // Map sub-sections that aren't direct navbar items
+        if (currentSectionId === "education") currentSectionId = "projects";
+        if (currentSectionId === "achievements") currentSectionId = "experience";
+
+        if (currentSectionId) {
+          navLinks.forEach((link) => {
+            link.classList.remove("active");
+            if (link.getAttribute("href") === "#" + currentSectionId) {
+              link.classList.add("active");
+            }
+          });
+        }
       }
       window.addEventListener("scroll", updateActiveLink, { passive: true });
 
@@ -2183,24 +2239,34 @@
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
-              const target = parseInt(entry.target.getAttribute("data-count"));
-              let count = 0;
+              const target = parseInt(entry.target.getAttribute("data-count"), 10);
+              const startTime = performance.now();
               const duration = 1200;
-              const step = Math.ceil(target / (duration / 16));
-              const timer = setInterval(() => {
-                count += step;
-                if (count >= target) {
-                  count = target;
-                  clearInterval(timer);
+
+              function animate(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                // Ease out cubic
+                const easeOut = 1 - Math.pow(1 - progress, 3);
+                const current = Math.floor(easeOut * target);
+
+                entry.target.textContent = current + (target > 1 ? "+" : "");
+                if (target === 1) entry.target.textContent = current;
+
+                if (progress < 1) {
+                  requestAnimationFrame(animate);
+                } else {
+                  entry.target.textContent = target + (target > 1 ? "+" : "");
+                  if (target === 1) entry.target.textContent = target;
                 }
-                entry.target.textContent = count + (target > 1 ? "+" : "");
-                if (target === 1) entry.target.textContent = count;
-              }, 16);
+              }
+
+              requestAnimationFrame(animate);
               counterObserver.unobserve(entry.target);
             }
           });
         },
-        { threshold: 0.5 },
+        { threshold: 0.3 },
       );
       statNumbers.forEach((el) => counterObserver.observe(el));
 
@@ -2282,10 +2348,17 @@
       /* ─── Smooth scroll for all anchor links ─── */
       document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
         anchor.addEventListener("click", function (e) {
-          e.preventDefault();
-          const target = document.querySelector(this.getAttribute("href"));
+          const hash = this.getAttribute("href");
+          if (hash === "#") return;
+          const target = document.querySelector(hash);
           if (target) {
+            e.preventDefault();
             target.scrollIntoView({ behavior: "smooth" });
+            if (history.pushState) {
+              history.pushState(null, null, hash);
+            } else {
+              location.hash = hash;
+            }
           }
         });
       });
