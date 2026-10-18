@@ -24,7 +24,10 @@
       property="og:description"
       content="Full Stack Java Developer specializing in Java, Spring Boot, React, and MySQL. Building robust, scalable web applications."
     />
-    <meta property="og:image" content="https://nezamul-portfolio.vercel.app/profile.jpg" />
+    <meta
+      property="og:image"
+      content="https://nezamul-portfolio.vercel.app/profile.jpg"
+    />
 
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -33,7 +36,10 @@
       name="twitter:description"
       content="Full Stack Java Developer specializing in Java, Spring Boot, React, and MySQL. Building robust, scalable web applications."
     />
-    <meta name="twitter:image" content="https://nezamul-portfolio.vercel.app/profile.jpg" />
+    <meta
+      name="twitter:image"
+      content="https://nezamul-portfolio.vercel.app/profile.jpg"
+    />
 
     <link rel="preconnect" href="https://fonts.cdnfonts.com" />
     <link
@@ -1552,16 +1558,23 @@
         <div class="about-grid">
           <div class="about-text reveal">
             <p>
-              I'm a Full Stack Java Developer specializing in building robust enterprise backend architectures with Spring Boot, Spring Security (JWT), Hibernate/JPA, and MySQL, paired with dynamic, modern frontends using React and JavaScript.
+              I'm a Full Stack Java Developer specializing in building robust
+              enterprise backend architectures with Spring Boot, Spring Security
+              (JWT), Hibernate/JPA, and MySQL, paired with dynamic, modern
+              frontends using React and JavaScript.
             </p>
             <br />
             <p>
-              My engineering focus emphasizes clean MVC design patterns, transaction integrity, concurrency management, and RESTful service design. Passionate about writing maintainable, production-ready code — based in Bengaluru, India and open to software engineering opportunities.
+              My engineering focus emphasizes clean MVC design patterns,
+              transaction integrity, concurrency management, and RESTful service
+              design. Passionate about writing maintainable, production-ready
+              code — based in Bengaluru, India and open to software engineering
+              opportunities.
             </p>
           </div>
           <div class="about-stats reveal reveal-delay-1">
             <div class="stat-card" id="stat-repos">
-              <span class="stat-number" data-count="4">4+</span>
+              <span class="stat-number" data-count="10">10+</span>
               <span class="stat-label">Projects &amp; Repos</span>
             </div>
             <div class="stat-card" id="stat-techs">
@@ -1590,19 +1603,35 @@
         <h2 class="section-title reveal">Technologies I work with</h2>
         <div class="skills-categories reveal reveal-delay-1">
           <div class="skill-category">
-            <div class="skill-category-title">Backend &amp; Enterprise Java</div>
+            <div class="skill-category-title">
+              Backend &amp; Enterprise Java
+            </div>
             <div class="skills-grid">
               <div class="skill-chip"><span class="skill-dot"></span>Java</div>
-              <div class="skill-chip"><span class="skill-dot"></span>Spring Boot</div>
-              <div class="skill-chip"><span class="skill-dot"></span>Spring Security</div>
+              <div class="skill-chip">
+                <span class="skill-dot"></span>Spring Boot
+              </div>
+              <div class="skill-chip">
+                <span class="skill-dot"></span>Spring Security
+              </div>
               <div class="skill-chip"><span class="skill-dot"></span>JWT</div>
-              <div class="skill-chip"><span class="skill-dot"></span>Spring Data JPA</div>
-              <div class="skill-chip"><span class="skill-dot"></span>Hibernate</div>
-              <div class="skill-chip"><span class="skill-dot"></span>Spring</div>
+              <div class="skill-chip">
+                <span class="skill-dot"></span>Spring Data JPA
+              </div>
+              <div class="skill-chip">
+                <span class="skill-dot"></span>Hibernate
+              </div>
+              <div class="skill-chip">
+                <span class="skill-dot"></span>Spring
+              </div>
               <div class="skill-chip"><span class="skill-dot"></span>JDBC</div>
               <div class="skill-chip"><span class="skill-dot"></span>JSP</div>
-              <div class="skill-chip"><span class="skill-dot"></span>Servlets</div>
-              <div class="skill-chip"><span class="skill-dot"></span>REST APIs</div>
+              <div class="skill-chip">
+                <span class="skill-dot"></span>Servlets
+              </div>
+              <div class="skill-chip">
+                <span class="skill-dot"></span>REST APIs
+              </div>
             </div>
           </div>
 
@@ -1610,8 +1639,12 @@
             <div class="skill-category-title">Frontend Development</div>
             <div class="skills-grid">
               <div class="skill-chip"><span class="skill-dot"></span>React</div>
-              <div class="skill-chip"><span class="skill-dot"></span>JavaScript</div>
-              <div class="skill-chip"><span class="skill-dot"></span>Tailwind CSS</div>
+              <div class="skill-chip">
+                <span class="skill-dot"></span>JavaScript
+              </div>
+              <div class="skill-chip">
+                <span class="skill-dot"></span>Tailwind CSS
+              </div>
               <div class="skill-chip"><span class="skill-dot"></span>HTML5</div>
               <div class="skill-chip"><span class="skill-dot"></span>CSS3</div>
             </div>
@@ -1627,10 +1660,16 @@
           <div class="skill-category">
             <div class="skill-category-title">Core Concepts &amp; Tools</div>
             <div class="skills-grid">
-              <div class="skill-chip"><span class="skill-dot"></span>OOP (OOPs)</div>
-              <div class="skill-chip"><span class="skill-dot"></span>MVC Architecture</div>
+              <div class="skill-chip">
+                <span class="skill-dot"></span>OOP (OOPs)
+              </div>
+              <div class="skill-chip">
+                <span class="skill-dot"></span>MVC Architecture
+              </div>
               <div class="skill-chip"><span class="skill-dot"></span>Git</div>
-              <div class="skill-chip"><span class="skill-dot"></span>GitHub</div>
+              <div class="skill-chip">
+                <span class="skill-dot"></span>GitHub
+              </div>
             </div>
           </div>
         </div>
@@ -2202,7 +2241,8 @@
 
         // Map sub-sections that aren't direct navbar items
         if (currentSectionId === "education") currentSectionId = "projects";
-        if (currentSectionId === "achievements") currentSectionId = "experience";
+        if (currentSectionId === "achievements")
+          currentSectionId = "experience";
 
         if (currentSectionId) {
           navLinks.forEach((link) => {
@@ -2239,7 +2279,10 @@
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
-              const target = parseInt(entry.target.getAttribute("data-count"), 10);
+              const target = parseInt(
+                entry.target.getAttribute("data-count"),
+                10,
+              );
               const startTime = performance.now();
               const duration = 1200;
 
